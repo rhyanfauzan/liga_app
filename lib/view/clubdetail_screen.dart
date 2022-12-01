@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:liga_app/config/app_color.dart';
+import 'package:get/get.dart';
 
 import '../config/theme.dart';
 import '../widgets/item_detailclub.dart';
 
 class ClubDetailScreen extends StatelessWidget {
-  const ClubDetailScreen({super.key});
+  ClubDetailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +13,8 @@ class ClubDetailScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Detail Club',
+        title: Text(
+          'Name Club',
         ),
       ),
       body: Column(

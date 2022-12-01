@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../widgets/item_club.dart';
 
 class ClubsScreen extends StatelessWidget {
   ClubsScreen({super.key});
+  var data = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
+    String nameLeague = data[0];
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'League',
+        title: Text(
+          nameLeague,
         ),
       ),
       body: Padding(

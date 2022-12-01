@@ -26,7 +26,7 @@ class itemLeague extends StatelessWidget {
       child: Bounce(
         duration: durasiBounce,
         onPressed: () {
-          Get.toNamed('/clubs');
+          Get.toNamed('/clubs', arguments: [nameLeague]);
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
