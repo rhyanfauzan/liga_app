@@ -3,6 +3,8 @@ import 'package:flutter_bounce/flutter_bounce.dart';
 import 'package:get/get.dart';
 import 'package:liga_app/controller/thesportdb_controller.dart';
 import 'package:liga_app/view/clubdetail_screen.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import '../config/app_color.dart';
 import '../model/club_model.dart';
 import '../widgets/item_club.dart';
 
@@ -89,7 +91,10 @@ class _ClubsScreenState extends State<ClubsScreen> {
                 } else {
                   print('hasError');
                 }
-                return const Center(child: CircularProgressIndicator());
+                return  Center(child: LoadingAnimationWidget.fourRotatingDots(
+                            color: AppColor.secondary,
+                            size: 50,
+                          ));
               }),
         ),
       ),

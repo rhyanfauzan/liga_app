@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bounce/flutter_bounce.dart';
 import 'package:get/get.dart';
 import 'package:liga_app/model/league_model.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
+import '../config/app_color.dart';
 import '../config/theme.dart';
 import '../controller/thesportdb_controller.dart';
 
@@ -102,7 +104,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         } else {
                           print('hasError');
                         }
-                        return const Center(child: CircularProgressIndicator());
+                        return Center(
+                          child: LoadingAnimationWidget.staggeredDotsWave(
+                            color: AppColor.secondary,
+                            size: 50,
+                          ),
+                        );
                       }),
                 ),
               ],
