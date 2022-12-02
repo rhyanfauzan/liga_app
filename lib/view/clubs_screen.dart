@@ -22,11 +22,13 @@ class _ClubsScreenState extends State<ClubsScreen> {
   Duration durasiBounce = const Duration(milliseconds: 110);
   late Future<ClubModel?> futureClub;
   List<Team> dataclubs = [];
+  List<Team> filterclubs = [];
 
   Future getDataClub() async {
     await theSportDbController.fetchData();
     setState(() {
       dataclubs = theSportDbController.clubModel.teams;
+      filterclubs = dataclubs;
     });
   }
 
@@ -40,6 +42,7 @@ class _ClubsScreenState extends State<ClubsScreen> {
     await theSportDbController.fetchDataClubs(data[0]);
     setState(() {
       dataclubs = theSportDbController.clubModel.teams;
+      filterclubs = dataclubs;
     });
   }
 
@@ -58,44 +61,76 @@ class _ClubsScreenState extends State<ClubsScreen> {
         onRefresh: refresh,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: FutureBuilder<ClubModel?>(
-              future: theSportDbController.fetchDataClubs(nameLeague),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return ListView.builder(
-                    itemCount: dataclubs.length,
-                    itemBuilder: (context, index) {
-                      return Bounce(
-                        duration: durasiBounce,
-                        onPressed: () {
-                          print('kirim indeks $index');
-                          Get.toNamed('/clubdetail',
-                              arguments: [index]);
-                          // Navigator.of(context).push(MaterialPageRoute(
-                          //     builder: (context) =>
-                          //         ClubDetailScreen(indeks: index,)));
-                          // Get.to(ClubDetailScreen());
-                        },
-                        child: itemClub(
-                          nameClub: '${dataclubs[index].strTeam}',
-                          imageClub: dataclubs[index].strTeamBadge,
-                          locClub: dataclubs[index].strStadium,
-                          yearClub: dataclubs[index].intFormedYear,
-                        ),
-                      );
-                    },
-                    // separatorBuilder: (context, index) {
-                    //   return const Divider();
-                    // },
-                  );
-                } else {
-                  print('hasError');
-                }
-                return  Center(child: LoadingAnimationWidget.fourRotatingDots(
-                            color: AppColor.secondary,
-                            size: 50,
-                          ));
-              }),
+          child: Column(
+            children: [
+              TextField(
+                onChanged: (value) {
+                  value.toLowerCase();
+
+                  setState(() {
+                    filterclubs = dataclubs.where((name) {
+                      var text = name.strTeam!.toLowerCase();
+                      return text.contains(value);
+                    }).toList();
+                  });
+                },
+                decoration: const InputDecoration(
+                    labelText: 'Search Team', suffixIcon: Icon(Icons.search)),
+              ),
+              const SizedBox(
+                height: 14,
+              ),
+              Expanded(
+                child: FutureBuilder<ClubModel?>(
+                    future: theSportDbController.fetchDataClubs(nameLeague),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return ListView.builder(
+                          itemCount: filterclubs.length,
+                          itemBuilder: (context, index) {
+                            return Bounce(
+                              duration: durasiBounce,
+                              onPressed: () {
+                                print('kirim indeks $index');
+                                Get.toNamed('/clubdetail', arguments: [
+                                  filterclubs[index].strTeamBanner,
+                                  filterclubs[index].strTeam,
+                                  filterclubs[index].strCountry,
+                                  filterclubs[index].intFormedYear,
+                                  filterclubs[index].strLeague,
+                                  filterclubs[index].strTeamBadge,
+                                  filterclubs[index].strStadiumThumb,
+                                  filterclubs[index].strStadium,
+                                  filterclubs[index].strTeamJersey,
+                                  filterclubs[index].strTeamFanart1,
+                                  filterclubs[index].strDescriptionEN,
+                                  ]);
+                                
+                              },
+                              child: itemClub(
+                                nameClub: '${filterclubs[index].strTeam}',
+                                imageClub: filterclubs[index].strTeamBadge,
+                                locClub: filterclubs[index].strStadium,
+                                yearClub: filterclubs[index].intFormedYear,
+                              ),
+                            );
+                          },
+                          // separatorBuilder: (context, index) {
+                          //   return const Divider();
+                          // },
+                        );
+                      } else {
+                        print('hasError');
+                      }
+                      return Center(
+                          child: LoadingAnimationWidget.fourRotatingDots(
+                        color: AppColor.secondary,
+                        size: 50,
+                      ));
+                    }),
+              ),
+            ],
+          ),
         ),
       ),
     );

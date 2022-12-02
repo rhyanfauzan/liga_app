@@ -6,7 +6,7 @@ import '../widgets/item_detailclub.dart';
 
 class ClubDetailScreen extends GetView<TheSportDbController> {
   //  ClubDetailScreen({Key? key, required this.indeks}) : super(key: key);
-  var datac = Get.arguments;
+  var data = Get.arguments;
   ClubDetailScreen({super.key});
   late TheSportDbController theSportDbController =
       Get.put(TheSportDbController());
@@ -15,23 +15,31 @@ class ClubDetailScreen extends GetView<TheSportDbController> {
   Widget build(BuildContext context) {
     var dataclubs = theSportDbController.clubModel.teams;
     double mWidth = (MediaQuery.of(context).size.width / 2) - 80;
-    int indeks = datac[0];
-    // print(Get.arguments['indeks']);
-    print('indeks $indeks');
+    String? strTeamBanner = data[0];
+    String? strTeam = data[1];
+    String? strCountry = data[2];
+    String? intFormedYear = data[3];
+    String? strLeague = data[4];
+    String? strTeamBadge = data[5];
+    String? strStadiumThumb = data[6];
+    String? strStadium = data[7];
+    String? strTeamJersey = data[8];
+    String? strTeamFanart1 = data[9];
+    String? strDescriptionEN = data[10];
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Detail Club ${dataclubs[indeks].strTeam}',
+          'Detail Club $strTeam',
         ),
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            dataclubs[indeks].strTeamBanner != null
+            strTeamBanner != null
                 ? Image.network(
-                    '${dataclubs[indeks].strTeamBanner}',
+                    strTeamBanner,
                     width: double.infinity,
                   )
                 : const SizedBox(),
@@ -52,7 +60,7 @@ class ClubDetailScreen extends GetView<TheSportDbController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '${dataclubs[indeks].strTeam}',
+                              '$strTeam',
                               style: blackTextStyle.copyWith(
                                 fontWeight: bold,
                                 fontSize: 34,
@@ -70,7 +78,7 @@ class ClubDetailScreen extends GetView<TheSportDbController> {
                                   ),
                                   children: <TextSpan>[
                                     TextSpan(
-                                      text: '${dataclubs[indeks].strCountry}',
+                                      text: '$strCountry',
                                       style: greyTextStyle.copyWith(
                                         fontWeight: regular,
                                         fontSize: 12,
@@ -87,8 +95,7 @@ class ClubDetailScreen extends GetView<TheSportDbController> {
                                   ),
                                   children: <TextSpan>[
                                     TextSpan(
-                                      text:
-                                          '${dataclubs[indeks].intFormedYear}',
+                                      text: '$intFormedYear',
                                       style: greyTextStyle.copyWith(
                                         fontWeight: regular,
                                         fontSize: 12,
@@ -105,7 +112,7 @@ class ClubDetailScreen extends GetView<TheSportDbController> {
                                   ),
                                   children: <TextSpan>[
                                     TextSpan(
-                                      text: '${dataclubs[indeks].strLeague}',
+                                      text: '$strLeague',
                                       style: greyTextStyle.copyWith(
                                         fontWeight: regular,
                                         fontSize: 12,
@@ -116,9 +123,9 @@ class ClubDetailScreen extends GetView<TheSportDbController> {
                           ],
                         ),
                       ),
-                      dataclubs[indeks].strTeamBadge != null
+                      strTeamBadge != null
                           ? Image.network(
-                              '${dataclubs[indeks].strTeamBadge}',
+                              strTeamBadge,
                               height: mWidth,
                             )
                           : Image.asset(
@@ -136,23 +143,23 @@ class ClubDetailScreen extends GetView<TheSportDbController> {
                         physics: const BouncingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
                         children: [
-                          dataclubs[indeks].strStadiumThumb != null
+                          strStadiumThumb != null
                               ? itemDetailClub(
-                                  image: '${dataclubs[indeks].strStadiumThumb}',
+                                  image: strStadiumThumb,
                                   title: 'Stadium',
-                                  name: '${dataclubs[indeks].strStadium}',
+                                  name: '$strStadium',
                                 )
                               : const SizedBox(),
-                          dataclubs[indeks].strTeamJersey != null
+                          strTeamJersey != null
                               ? itemDetailClub(
-                                  image: '${dataclubs[indeks].strTeamJersey}',
+                                  image: strTeamJersey,
                                   title: 'Jersey',
                                   name: '',
                                 )
                               : const SizedBox(),
-                          dataclubs[indeks].strTeamFanart1 != null
+                          strTeamFanart1 != null
                               ? itemDetailClub(
-                                  image: '${dataclubs[indeks].strTeamFanart1}',
+                                  image: strTeamFanart1,
                                   title: 'Supporter',
                                   name: '',
                                 )
@@ -223,7 +230,7 @@ class ClubDetailScreen extends GetView<TheSportDbController> {
                     ),
                   ),
                   Text(
-                    '${dataclubs[indeks].strDescriptionEN}',
+                    '$strDescriptionEN',
                     style: greyTextStyle.copyWith(
                       fontWeight: regular,
                       fontSize: 12,

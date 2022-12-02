@@ -41,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
     await theSportDbController.fetchData();
     setState(() {
       filterleague = theSportDbController.leagueModel.leagues;
+      filterleague = dataleagues;
     });
   }
 
