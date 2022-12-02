@@ -31,7 +31,7 @@ class itemDetailClub extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(14),
-                child: Image.asset(
+                child: Image.network(
                   image,
                   width: 100,
                   height: 80,

@@ -3,9 +3,7 @@ import 'package:get/get.dart';
 import 'package:liga_app/view/clubdetail_screen.dart';
 import 'package:liga_app/view/clubs_screen.dart';
 import 'package:liga_app/view/home_screen.dart';
-import 'package:google_fonts/google_fonts.dart';
-
-import 'config/app_color.dart';
+import 'package:liga_app/view/tes_screen.dart';
 import 'config/theme.dart';
 
 void main() {
@@ -35,9 +33,10 @@ class MyApp extends StatelessWidget {
         ),
       ),
       routes: {
-        '/': (context) => HomeScreen(),
-        '/clubs': (context) => ClubsScreen(),
+        '/': (context) => const HomeScreen(),
+        '/clubs': (context) => const ClubsScreen(),
         '/clubdetail': (context) => ClubDetailScreen(),
+        '/tes': (context) => const TesScreen(),
       },
     );
   }

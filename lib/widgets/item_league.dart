@@ -12,7 +12,7 @@ class itemLeague extends StatelessWidget {
   }) : super(key: key);
 
   String nameLeague;
-  Duration durasiBounce = Duration(milliseconds: 110);
+  Duration durasiBounce = const Duration(milliseconds: 110);
 
   @override
   Widget build(BuildContext context) {
