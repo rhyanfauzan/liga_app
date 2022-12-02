@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       routes: {
-        '/': (context) => const HomeScreen(),
+        '/': (context) => HomeScreen(),
         '/clubs': (context) => ClubsScreen(),
         '/clubdetail': (context) => ClubDetailScreen(),
       },

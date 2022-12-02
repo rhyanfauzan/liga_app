@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:liga_app/controller/thesportdb_controller.dart';
 import '../widgets/item_club.dart';
 
 class ClubsScreen extends StatelessWidget {
@@ -26,9 +27,6 @@ class ClubsScreen extends StatelessWidget {
               locClub: 'England',
               yearClub: '1892',
             ),
-            itemClub(
-              nameClub: 'Tarkam Fc',
-            )
           ],
         ),
       ),

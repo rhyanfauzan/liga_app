@@ -1,3 +1,10 @@
+import 'dart:convert';
+
+LeagueModel leagueModelFromJson(String str) =>
+    LeagueModel.fromJson(json.decode(str));
+
+String leagueModelToJson(LeagueModel data) => json.encode(data.toJson());
+
 class LeagueModel {
   LeagueModel({
     required this.leagues,
@@ -32,13 +39,16 @@ class League {
         idLeague: json["idLeague"],
         strLeague: json["strLeague"],
         strSport: json["strSport"],
-        strLeagueAlternate: json["strLeagueAlternate"],
+        strLeagueAlternate: json["strLeagueAlternate"] == null
+            ? null
+            : json["strLeagueAlternate"],
       );
 
   Map<String, dynamic> toJson() => {
         "idLeague": idLeague,
         "strLeague": strLeague,
         "strSport": strSport,
-        "strLeagueAlternate": strLeagueAlternate,
+        "strLeagueAlternate":
+            strLeagueAlternate == null ? null : strLeagueAlternate,
       };
 }
