@@ -37,9 +37,10 @@ class itemClub extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               imageClub != null
-                  ? Image.asset(
+                  ? Image.network(
                       imageClub!,
                       width: 40,
                       height: 40,
@@ -74,13 +75,16 @@ class itemClub extends StatelessWidget {
                   ),
                 ],
               ),
-              const Spacer(),
-              Text(
-                '$locClub',
-                textAlign: TextAlign.center,
-                style: greyTextStyle.copyWith(
-                  fontWeight: regular,
-                  fontSize: 12,
+              Expanded(
+                child: Text(
+                  '$locClub',
+                  textAlign: TextAlign.end,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: greyTextStyle.copyWith(
+                    fontWeight: regular,
+                    fontSize: 12,
+                  ),
                 ),
               ),
             ],
