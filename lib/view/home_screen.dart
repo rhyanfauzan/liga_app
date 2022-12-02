@@ -21,11 +21,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Duration durasiBounce = const Duration(milliseconds: 110);
   late Future<LeagueModel?> futureLeague;
   List<League> dataleagues = [];
+  List<League> filterleague = [];
 
   Future getData() async {
     await theSportDbController.fetchData();
     setState(() {
       dataleagues = theSportDbController.leagueModel.leagues;
+      filterleague = dataleagues;
     });
   }
 
@@ -38,13 +40,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Future refresh() async {
     await theSportDbController.fetchData();
     setState(() {
-      dataleagues = theSportDbController.leagueModel.leagues;
+      filterleague = theSportDbController.leagueModel.leagues;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    print('jumlah : ${dataleagues.length}');
+    print('jumlah : ${filterleague.length}');
     return Scaffold(
       body: SafeArea(
         child: RefreshIndicator(
@@ -67,19 +69,37 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   height: 14,
                 ),
+                TextField(
+                  onChanged: (value) {
+                    value.toLowerCase();
+
+                    setState(() {
+                      filterleague = dataleagues.where((name) {
+                        var text = name.strLeague.toLowerCase();
+                        return text.contains(value);
+                      }).toList();
+                    });
+                  },
+                  decoration: const InputDecoration(
+                      labelText: 'Search League',
+                      suffixIcon: Icon(Icons.search)),
+                ),
+                const SizedBox(
+                  height: 14,
+                ),
                 Expanded(
                   child: FutureBuilder<LeagueModel?>(
                       future: theSportDbController.fetchData(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           return ListView.separated(
-                            itemCount: dataleagues.length,
+                            itemCount: filterleague.length,
                             itemBuilder: (context, index) {
                               return Bounce(
                                 duration: durasiBounce,
                                 onPressed: () {
                                   Get.toNamed('/clubs', arguments: [
-                                    dataleagues[index].strLeague
+                                    filterleague[index].strLeague
                                   ]);
                                 },
                                 child: ListTile(
@@ -88,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     height: 30,
                                   ),
                                   title: Text(
-                                    dataleagues[index].strLeague,
+                                    filterleague[index].strLeague,
                                     style: blackTextStyle.copyWith(
                                       fontWeight: medium,
                                       fontSize: 13,
